@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker-Webapp</title>
+    
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #container{
+            background: center/cover no-repeat url("docker.jpg");
+            height: 700px;
+        }
+        h1{
+            color: bisque;
+            text-align: center;
+            background-color: rgb(22, 22, 70);
+            padding: 10px;
+            font-size: 40px;
+        }
+        h2{
+            color: rgb(196, 246, 248);
+            text-align:center;
+            padding: 20px;
+            font-size: 30px;
+        }
+        #button{
+            height: 50px;
+            width:200px;
+            color: rgb(20, 85, 110);
+            border: 2px solid rgb(73, 11, 245);
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        #command{
+            display: flex;
+            flex-direction: column;
+            align-items:center ;
+            justify-content: center;
+            height: 200px;
+            width:600px;
+            margin: 10px auto;
+            padding:10px;
+        }
+        input{
+            margin:15px 0px;
+            padding: 10px;
+        }
+        #command_prompt{
+            color: aliceblue;
+            font-size: 20px;
+            padding: 20px;
+        }
+        #button:hover{
+            background-color: rgb(84, 84, 238);
+            cursor: pointer;
+        }
+        #output{
+            width:500px;
+            height: 125px;
+            color: rgb(189, 230, 253);
+            font-size: 15px;
+            border: 2px solid rgb(150, 228, 252);
+	    align-items: center;
+	    margin:150px auto;
+        }
+        #textbox{
+            font-size: 15px;
+            width: 300px;
+
+        }
+        #prompt{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function runcommand(){
+            var i = document.getElementById("textbox").Value ;
+            var j = new XMLHttpRequest();
+
+            j.open("GET","http://192.168.43.113/cgi-bin/temp.py?x=" + i,true);
+            j.send();
+
+            j.onload = function(){
+                var output = j.responseText;
+                document.getElementById("output").innerHTML = output;
+            }
+        }
+    </script>
+    <div id="header">
+        <h1>Docker Web Application</h1>
+    </div>
+    <div id="container">
+        <h2>This is a Docker Web Application here you can run some basic docker commands! </h2>
+        <div id="command">
+            <div id="prompt">
+                <p id="command_prompt">[root@localhost ~]# </p>
+                <input type="text" id="textbox" placeholder="Enter the command" >
+            </div>
+            <input type="sumbit" value="Run the command" id="button" onclick="runcommand()">
+        </div>
+         <div id="output">Here is the output ..</div>
+    </div>
+   
+</body>
+</html>
